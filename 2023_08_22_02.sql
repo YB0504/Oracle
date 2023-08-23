@@ -177,37 +177,7 @@ merge into emp01
 -- (합병된 결과 확인)
 select * from emp01;
 
----------------------------------------------------------------------
-
--- 트랜잭션 (Transaction)
--- 1. 논리적인 작업단위
--- 2. 트랜잭션은 DML SQL문으로 시작된다.(insert, update, delete)
--- 3. 데이터 일관성을 유지하면서, 데이터를 안정적으로 복구하기 위해서 사용된다.
--- 4. All - OR - Nothing 방식으로 처리된다.
-
--- TCL(Transaction Control Language)
--- COMMIT : 트랜잭션을 종료
--- ROLLBACK : 트랜잭션을 취소
--- SAVEPOINT : 복구할 시점(저장점)을 지정하는 역할
-
--- 실습
-drop table dept01 purge;
-CREATE table dept01 as select * from dept;
-SELECT * from dept01;
-
--- 1. ROLLBACK : 트랜잭션을 취소
--- 새로운 트랜잭션이 시작되고, 메모리상에서만 delete가 실행된다.
-delete from dept01;
-
--- 트랜잭션을 취소하기 때문에, 메모리상에서 지워진 데이터가 복구된다.
-ROLLBACK;
-SELECT * from dept01;
-
--- 2. COMMIT : 트랜잭션을 종료
--- 메모리 상에서 처리된 DML SQL문을 데이터 베이스에 영구히 반영하게 된다.
-DELETE from dept01 where deptno = 20; -- 메모리상에서 20번 데이터 삭제
-commit; -- 트랜잭션 종료 (메모리상에서 삭제된 데이터를 DB에 반영하고 삭제한다.)
-ROLLBACK; -- 트랜잭션이 종료되었기 때문에 삭제된 20번 데이터는 복구할 수 없다.
+--------------------------------------------------------------------
 
 
 
