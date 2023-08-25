@@ -275,9 +275,17 @@ from(select * from emp
 order by sal desc)  -- 인라인 뷰
 where rownum <= 5;
 
+-- 입사일이 3~5번째 빠른사원을 검색
+select rownum, rnum, ename, hiredate from(
+    select rownum rnum, ename, hiredate from(
+    select * from emp order by hiredate asc))
+    where rnum between 3 and 5;
 
-
-
+-- 사원번호가 3~5번째 빠른 사원을 검색
+SELECT rownum, rm, ename, empno from(
+select rownum rm, ename, empno from(
+select * from emp order by empno asc))
+where rm between 3 and 5;
 
 
 

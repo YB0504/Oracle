@@ -96,7 +96,7 @@ SELECT count(comm)from emp where deptno = 30;
 
 ---------------------------------------------------------------
 
--- GROUP BY 절 : 특정 컬럼을 기준으로 테이블에 존재하는 데이트를 그룹으로 구분하여
+-- GROUP BY 절 : 특정 컬럼을 기준으로 테이블에 존재하는 데이터를 그룹으로 구분하여
 --               처리해주는 역할을 한다.
 -- GROUP BY 절에 들어가는 컬럼은 예외적으로 그룹 함수와 같이 사용할 수 있다.
 SELECT sum(sal) from emp GROUP by deptno;
