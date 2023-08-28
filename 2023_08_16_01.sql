@@ -79,7 +79,7 @@ select ename, sal * 12, sal * 12 + nvl(comm, 0) as "연봉" from emp;
 select ename, sal * 12, sal * 12 + nvl(comm, 0) "연봉" from emp;
 select ename, sal * 12, sal * 12 + nvl(comm, 0) 연봉 from emp;
 
--- Concatennation 연산자 : ||
+-- Concatenation 연산자 : ||
 -- 컬럼과 문자열을 연결할 때 사용한다.
 SELECT ename, ' is a ', job FROM emp;
 SELECT ename || ' is a ' || job FROM emp;
