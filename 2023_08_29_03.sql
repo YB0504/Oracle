@@ -24,3 +24,27 @@ identified by tiger;
 --        생성할 수 있는 권한을 부여하시오.
 grant create session, create table to user01;
 
+----------------------------------------------------------------------
+
+-- 선생님 코드
+
+Ans 1. SQL> create user woman identified by tiger;
+
+       SQL> grant create session to woman with admin option;
+
+       SQL> grant connect, resource, dba to woman;
+
+
+Ans 2. SQL> create user user01 identified by tiger;
+
+
+Ans 3. SQL> grant create session, create table to user01;
+
+
+
+
+
+
+
+
+
