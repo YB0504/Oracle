@@ -26,6 +26,48 @@ where options like '%시트%'
 group by car_type
 order by car_type asc;
 
+-- 2022년 5월에 예약한 환자 수를 진료과 코드별로 조회하는 SQL문
+-- 컬럼명은 '진료과 코드', '5월예약건수'
+-- 환자수를 기준 오름차순, 같다면 진료과 코드를 기준으로 오름차순
+-- 예약취소여부와 상관없이 예약을 한! 환자수를 센다.
+select mcdp_cd as "진료과코드", count(*)as "5월예약건수"
+from appointment
+where to_char(apnt_ymd,'yyyy-mm') = '2022-05'
+group by mcdp_cd
+order by count(*) asc, mcdp_cd asc;
+
+-- 동물보호소에 들어온 동물 중 고양이와 개가 각각 몇 마리인지 조회하는 SQL문
+-- 고양이를 개보다 먼저 조회
+select animal_type, count(animal_type) 마리수
+from animal_ins
+where animal_type in('Cat', 'Dog')
+group by animal_type
+order by animal_type asc;
+
+-- 동물 보호소에 들어온 동물 이름 중 두 번 이상 쓰인 이름과 
+-- 해당 이름이 쓰인 횟수를 조회하는 SQL문
+-- 이름이 없는 동물은 제외, 이름 순으로 조회
+-- HAVING 절에는 COUNT, SUM, AVG, MAX, MIN 등 집계함수를 사용하여 조건을 부여
+-- 그룹화된 대상의 조건 안에서만 출력한다.
+select name, count(name) countname from animal_ins
+group by name
+having count(name) >= 2
+order by name asc;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
