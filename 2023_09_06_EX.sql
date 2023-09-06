@@ -17,6 +17,17 @@ from(select distinct food_type, max(favorites) favorites
     and a.favorites = b.favorites
 order by food_type desc;
 
+-- 완료된 중고 거래의 총금액이 70만원 이상인 사람의 회원ID, 닉네임, 총거래 금액을
+-- 조회하는 SQL문 작성, 총거래금액 기준으로 오름차순
+select user_id, nickname, total_sales
+from used_goods_user join (select writer_id, sum(price) as total_sales
+                            from used_goods_board
+                            where status = 'DONE'
+                            group by writer_id)
+                    on writer_id = user_id
+                    where total_sales >= 700000
+                    order by total_sales asc;
+
 
 
 
