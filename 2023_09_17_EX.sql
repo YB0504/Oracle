@@ -43,8 +43,36 @@ AND A.MEMBER_ID IN
     GROUP BY MEMBER_ID))
 ORDER BY B.REVIEW_DATE, B.REVIEW_TEXT;
 
+-- 2021년에 가입한 전체 회원들 중 상품을 구매한 회원수와 
+-- 상품을 구매한 회원의 비율
+-- (=2021년에 가입한 회원 중 상품을 구매한 회원수 / 2021년에 가입한 전체 회원 수)
+-- 년, 월 별로 출력하는 SQL문을 작성
+-- 회원의 비율은 소수점 두번째자리에서 반올림하고, 
+-- 년을 기준 오름차순 정렬 같다면 월을 기준 오름차순 정렬
+SELECT to_char(a.joined,'yyyy')as "YEAR", to_number(to_char(a.joined,'mm'))as "MONTH",
+count(distinct a.user_id)as "구매한회원수", round(count(distinct a.user_id) / count(b.user_id), 1)as "회원비율"
+from user_info a
+right join online_sale b
+on a.user_id = b.user_id
+where b.user_id = (select count(distinct user_id) from (
+    select count(user_id) from user_info where to_char(joined, 'yyyy') = '2021'))
+group by to_char(a.joined,'yyyy'), to_number(to_char(a.joined,'mm'))
+order by year asc, month asc;
+-- 구매한 회원수를 조회하랬더니 가입한 회원수? 컬럼 select를 잘못했다...
 
-
+-- 참조한 정답
+SELECT TO_CHAR(SALES_DATE, 'YYYY') as YEAR,
+       TO_NUMBER(TO_CHAR(SALES_DATE, 'MM')) as MONTH,
+       COUNT(DISTINCT(I.USER_ID)) as PUCHASED_USERS,
+       ROUND(COUNT(DISTINCT(I.USER_ID)) / 
+             (SELECT COUNT(DISTINCT(USER_ID)) 
+              FROM USER_INFO
+              WHERE TO_CHAR(JOINED, 'YYYY') = '2021')
+             ,1) as PUCHASED_RATIO       
+FROM USER_INFO I RIGHT JOIN ONLINE_SALE S ON I.USER_ID = S.USER_ID
+WHERE TO_CHAR(JOINED, 'YYYY') = '2021'
+GROUP BY TO_CHAR(SALES_DATE, 'YYYY'), TO_CHAR(SALES_DATE, 'MM')
+ORDER BY year asc, month asc;
 
 
 
