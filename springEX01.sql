@@ -11,3 +11,5 @@ create SEQUENCE myboard_seq
 start with 1
 INCREMENT by 1
 NOCACHE;
+
+SELECT * from member;
